@@ -6,6 +6,15 @@
 	<title>Registration Result</title>
 </head>
 <body>
+	<% 
+	/*
+	Just enter the item id,quantity of components and a small description
+        regarding the component and we will make sure that the component is  
+        either replaced or reapired.Until either of the two occurs,the
+        validity of the component would be in dispute and it would be taken
+   d     own from the inventory.
+	*/ 
+	%>
 	<h3>Add Complain</h3>
 	<fieldset>
 	<legend>Result</legend>
@@ -29,6 +38,7 @@
 		if(Integer.parseInt(quantity) > 0)	{
 			String query;
 			query = "select item_quantity from lab_item where item_id = '" + item_id + "'";
+			<% // The above query locates the item in dispute from the database %>
 			res = myStmt.executeQuery(query);
 			res.next();
 			int item_quantity = res.getInt("item_quantity");
@@ -38,6 +48,7 @@
 			}
 			else {
 				item_quantity -= defective_quantity;
+		                <% // The item_quantity of the item is dispute is decremented by the apt value %>
 				query = "update lab_item set item_quantity = " + String.valueOf(item_quantity) + " where "
 						+ "item_id = '" + item_id + "'";
 				myStmt.executeUpdate(query);
@@ -74,7 +85,7 @@
 <footer>
 	<br/>
 	<a href="http://localhost:8080/asset_management/homepage.jsp">Homepage</a>
-	<br/><br/>© 2017 <u>Akash D</u>
+	<br/><br/>Â© 2017 <u>Akash D</u>
 </footer>
 
 </html>
