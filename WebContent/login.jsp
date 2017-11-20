@@ -25,12 +25,26 @@
 			User_id = res.getString("user_id");
 			Password = res.getString("password");
 			previlege = res.getInt("previlege");
+			<%
+			/*
+			Privilege level 1 : Professor,Assistant Professor,Head Lab Manager.
+			Privilege level 2 : Lab Manager,Project Associate.
+			Privilege level 3 : Teaching Assistant.
+			Privilege level 4 : Student
+			*/
+			%>
 			User_name = res.getString("user_name");
 			if(user_id.equals(User_id) && password.equals(Password) && previlege == 2)	{
 				flag = true;
 				break;
 			}
 		}
+	        <%
+		/*
+		In special cases a student might be upgraded to privilege level 3 on the orders
+                of a professor but not higher. 
+		*/
+		%>
 		if(flag)	{
 			String redirect = "http://localhost:8080/asset_management/homepage.jsp?user_name=" + User_name;
 			response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -61,6 +75,6 @@
 	<br/><br/>	
 </body>
 <footer>
-	© 2017 <u>Akash D</u>
+	Â© 2017 <u>Akash D</u>
 </footer>
 </html>
