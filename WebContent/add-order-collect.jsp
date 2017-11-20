@@ -38,7 +38,14 @@
 			res.next();
 			int old_quantity = res.getInt("item_quantity");
 			old_quantity += Integer.parseInt(order_quantity);
-			
+			<% 
+			/*
+			 Update the old_quantity by the amount recieved from the supplier.Note that only
+			 those users having privilege levels 1 and 2 are authorized to add orders.(To see
+			 what the privilege levels mean,refer to the documentation.).As of now,in Phase I
+			 all the users are admins.
+			 */
+			 %>
 			query = "update lab_item set item_quantity = '" + old_quantity + "' where item_id = '" + item_id + "'";
 			myStmt.executeUpdate(query);
 			
@@ -53,6 +60,7 @@
 		catch(Exception e)	{
 			if(myConn != null)
 				myConn.rollback();
+		       <% // In case queries do not execute successfully. %>
 			out.println(e.getMessage());
 		}
 		finally {
@@ -70,7 +78,7 @@
 <footer>
 	<br/>
 	<a href="http://localhost:8080/asset_management/homepage.jsp">Homepage</a>
-	<br/><br/>© 2017 <u>Akash D</u>
+	<br/><br/>Â© 2017 <u>Akash D</u>
 </footer>
 
 </html>
